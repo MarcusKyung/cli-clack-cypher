@@ -19,6 +19,16 @@ async function encrypt() {
     },
   });
 
+  await spinner();
+
+  const confirmEncryptKey = await p.confirm({
+    message: 'Confirm encryptKey: ' + encryptKey + ' (Yes/No)',
+  });
+
+  if (!confirmEncryptKey) {
+    await encrypt();
+  }
+
   let offset = 0;
   const vowels = 'aeiouAEIOU';
   const vowelCount = Array.from(encryptKey).filter(char => vowels.includes(char)).length;
@@ -26,16 +36,28 @@ async function encrypt() {
   const numberCount = Array.from(encryptKey).filter(char => !isNaN(char)).length;
   const consonantCount = encryptKey.length - vowelCount - numberCount;
 
-  console.log(vowelCount);
-  console.log(consonantCount);
-  console.log(numberSum);
+  //Console.logs for testing
+  // console.log(vowelCount);
+  // console.log(consonantCount);
+  // console.log(numberSum);
 
+  //Determine offset based on encryptKey
   if (vowelCount > consonantCount) {
     offset = encryptKey.length + numberSum;
   } else if (consonantCount > vowelCount) {
     offset = -encryptKey.length - numberSum;
   }
 
+  const message = await p.text({
+    message: 'Provide message',
+    placeholder: '',
+    initialValue: '',
+    validate(value) {
+      if (value.length === 0) return `message is required!`;
+    },
+  });
+
+  await spinner();
 
   let encryptedMessage = '';
   for (let i = 0; i < message.length; i++) {
@@ -60,9 +82,6 @@ async function encrypt() {
 
   console.log('Encrypted Message:', encryptedMessage);
 }
-
-
-
 
 async function spinner() {
   const s = p.spinner();
@@ -98,6 +117,10 @@ async function main() {
   }
 
   //Spinner set for two seconds before outro
+  await spinner();
+
+  console.log(`${color.bgMagenta(color.black(`Encryption Program Terminating...`))}`);
+
   await spinner();
 
   p.outro(`${color.bgMagenta(color.black(`Clack CLI Encryption Program Terminated`))}`);
