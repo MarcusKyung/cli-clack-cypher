@@ -48,6 +48,8 @@ async function encrypt() {
     offset = -encryptKey.length - numberSum;
   }
 
+  console.log(offset);
+
   const message = await p.text({
     message: 'Provide message',
     placeholder: '',
@@ -59,15 +61,15 @@ async function encrypt() {
 
   await spinner();
 
-  let encryptedMessage = '';
+  let encryptedMessage = ''; //Initalize empty encryptedMessage String
   for (let i = 0; i < message.length; i++) {
     const char = message[i];
     const charCode = char.charCodeAt(0);
 
-    // Only apply the substitution to letters
     if (/[a-zA-Z]/.test(char)) {
       let shiftedCharCode = charCode + offset;
 
+      //If character is uppercase and shiftedCharCode greater than 90 or lowercase and shiftedCharCode greater than 122, subtract 26
       if ((char >= 'A' && char <= 'Z' && shiftedCharCode > 90) || (char >= 'a' && char <= 'z' && shiftedCharCode > 122)) {
         shiftedCharCode -= 26;
       } else if ((char >= 'A' && char <= 'Z' && shiftedCharCode < 65) || (char >= 'a' && char <= 'z' && shiftedCharCode < 97)) {
