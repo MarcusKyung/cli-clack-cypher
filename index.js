@@ -36,11 +36,6 @@ async function encrypt() {
   const numberCount = Array.from(encryptKey).filter(char => !isNaN(char)).length;
   const consonantCount = encryptKey.length - vowelCount - numberCount;
 
-  //Console.logs for testing
-  // console.log(vowelCount);
-  // console.log(consonantCount);
-  // console.log(numberSum);
-
   //Determine offset based on encryptKey
   if (vowelCount > consonantCount) {
     offset = encryptKey.length + numberSum;
@@ -48,7 +43,7 @@ async function encrypt() {
     offset = -encryptKey.length - numberSum;
   }
 
-  console.log(offset);
+  console.log(offset); //currently offsets all characters by this count
 
   const message = await p.text({
     message: 'Provide message',
