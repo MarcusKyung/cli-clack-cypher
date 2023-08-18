@@ -19,7 +19,7 @@ async function encrypt() {
     },
   });
 
-  await spinner(10000);
+  await spinner();
 
   const confirmEncryptKey = await p.confirm({
     message: 'Confirm encryptKey: ' + encryptKey + ' (Yes/No)',
@@ -156,10 +156,10 @@ async function decrypt() {
   console.log('Decrypted Message:', decryptedMessage);
 }
 
-async function spinner(time) {
+async function spinner() {
   const s = p.spinner();
   s.start();
-  await setTimeout(time);
+  await setTimeout(3000);
   s.stop();
 }
 
@@ -172,7 +172,7 @@ async function main() {
 	p.intro(`${color.bgMagenta(color.black(' CLACK CLI CYPHER TOOL '))} `);
 
   //Spinner set for two seconds
-  await spinner(10000);
+  await spinner();
 
   //Encrypt/Decrypt Select
   const action = await p.select({
@@ -190,17 +190,13 @@ async function main() {
   }
 
   //Spinner set for two seconds before outro
-  await spinner(10000);
+  await spinner();
 
   console.log(`${color.bgMagenta(color.black(`Encryption Program Terminating...`))}`);
 
-  await spinner(10000);
+  await spinner();
 
   p.outro(`${color.bgMagenta(color.black(`Clack CLI Encryption Program Terminated`))}`);
 }
 
 main();
-
-
-
-// vszzc
