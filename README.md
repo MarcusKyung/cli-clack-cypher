@@ -10,14 +10,10 @@
 * _Clack CLI Component Library_
 * _Picocolors Terminal Output Library_
 
-## Description
-_This basic JS app_ 
-
 ## Known Bugs
-* _Next and previous page buttons don't work for search results_
+* _No known bugs as of 8/20/2023_
 
 ## License
-
 _For questions, comments, or concerns please reach out at Kyungmj@gmail.com_
 
 MIT License
