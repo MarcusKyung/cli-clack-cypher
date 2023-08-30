@@ -11,7 +11,7 @@
 * _Picocolors Terminal Output Library_
 
 ## Known Bugs
-* _No known bugs as of 8/20/2023_
+* _Program runs twice when encrypt key confirmation is no (8.29.23)_
 
 ## License
 _For questions, comments, or concerns please reach out at Kyungmj@gmail.com_
