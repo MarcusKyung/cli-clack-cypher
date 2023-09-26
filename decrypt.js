@@ -2,28 +2,29 @@ import * as p from '@clack/prompts';
 import { spinner } from './spinner.js';
 
 async function decrypt() {
-  const decryptKey = await p.text({
-    message: 'Provide decryptKey',
-    placeholder: '',
-    initialValue: '',
-    validate(value) {
-      if (!/^[a-zA-Z0-9]+$/.test(value)) {
-        return 'ERR: Only letters and numbers are allowed. Try again.';
-      }
-      if (value.length === 0) {
-        return 'ERR: decryptKey is required!';
-      }
-    },
-  });
+  let decryptKey;
+  let confirmDecryptKey = false;
 
-  await spinner();
+  while (!confirmDecryptKey) {
+    decryptKey = await p.text({
+      message: 'Provide decryptKey',
+      placeholder: '',
+      initialValue: '',
+      validate(value) {
+        if (!/^[a-zA-Z0-9]+$/.test(value)) {
+          return 'ERR: Only letters and numbers are allowed. Try again.';
+        }
+        if (value.length === 0) {
+          return 'ERR: decryptKey is required!';
+        }
+      },
+    });
 
-  const confirmDecryptKey = await p.confirm({
-    message: 'Confirm decryptKey: ' + decryptKey + ' (Yes/No)',
-  });
+    await spinner();
 
-  if (!confirmDecryptKey) {
-    await decrypt();
+    confirmDecryptKey = await p.confirm({
+      message: 'Confirm decryptKey: ' + decryptKey + ' (Yes/No)',
+    });
   }
 
   let decryptOffset = 0;

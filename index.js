@@ -26,34 +26,17 @@ async function main() {
     options: [
       { value: 'encrypt', label: 'ENCRYPT' },
       { value: 'decrypt', label: 'DECRYPT' },
+      { value: 'close', label: 'CLOSE' },
     ],
   });
 
   if (action === 'encrypt') {
     await encrypt();
-  } else {
+  } else if (action === 'decrypt') {
     await decrypt();
   }
 
-  await spinner();
-
-  //Encrypt/Decrypt or close select
-  const actionType = await p.select({
-    message: 'Select an action:',
-    options: [
-      { value: 'encrypt', label: 'ENCRYPT' },
-      { value: 'decrypt', label: 'DECRYPT' },
-      { value: 'close', label: 'CLOSE' },
-    ],
-  });
-
-  if (actionType === 'encrypt') {
-    await encrypt();
-  } else if (actionType === 'decrypt') {
-    await decrypt();
-  } 
-
-  await closeProgram()
+  await closeProgram();
 }
 
 main();

@@ -2,28 +2,29 @@ import * as p from '@clack/prompts';
 import { spinner } from './spinner.js';
 
 async function encrypt() {
-  const encryptKey = await p.text({
-    message: 'Provide encryptKey',
-    placeholder: '',
-    initialValue: '',
-    validate(value) {
-      if (!/^[a-zA-Z0-9]+$/.test(value)) {
-        return 'ERR: Only letters and numbers are allowed. Try again.';
-      }
-      if (value.length === 0) {
-        return 'ERR: encryptKey is required!';
-      }
-    },
-  });
+  let encryptKey;
+  let confirmEncryptKey = false;
 
-  await spinner();
+  while (!confirmEncryptKey) {
+    encryptKey = await p.text({
+      message: 'Provide encryptKey',
+      placeholder: '',
+      initialValue: '',
+      validate(value) {
+        if (!/^[a-zA-Z0-9]+$/.test(value)) {
+          return 'ERR: Only letters and numbers are allowed. Try again.';
+        }
+        if (value.length === 0) {
+          return 'ERR: encryptKey is required!';
+        }
+      },
+    });
 
-  const confirmEncryptKey = await p.confirm({
-    message: 'Confirm encryptKey: ' + encryptKey + ' (Yes/No)',
-  });
+    await spinner();
 
-  if (!confirmEncryptKey) {
-    await encrypt();
+    confirmEncryptKey = await p.confirm({
+      message: 'Confirm encryptKey: ' + encryptKey + ' (Yes/No)',
+    });
   }
 
   let offset = 0;
@@ -40,6 +41,43 @@ async function encrypt() {
     offset = -encryptKey.length - numberSum;
   }
 
+  while (offset % 26 === 0) {
+    console.log('The offset is a multiple of 26. Please provide a different encryptKey.');
+    
+    // Reprompt for a new encryptKey
+    encryptKey = await p.text({
+      message: 'Provide encryptKey',
+      placeholder: '',
+      initialValue: '',
+      validate(value) {
+        if (!/^[a-zA-Z0-9]+$/.test(value)) {
+          return 'ERR: Only letters and numbers are allowed. Try again.';
+        }
+        if (value.length === 0) {
+          return 'ERR: encryptKey is required!';
+        }
+      },
+    });
+  
+    await spinner();
+  
+    // Recalculate the offset based on the new encryptKey
+    const newVowelCount = Array.from(encryptKey).filter(char => vowels.includes(char)).length;
+    const newNumberSum = Array.from(encryptKey).filter(char => !isNaN(char)).reduce((sum, char) => sum + parseInt(char), 0);
+    const newNumberCount = Array.from(encryptKey).filter(char => !isNaN(char)).length;
+    const newConsonantCount = encryptKey.length - newVowelCount - newNumberCount;
+  
+    if (newVowelCount > newConsonantCount) {
+      offset = encryptKey.length + newNumberSum;
+    } else if (newConsonantCount > newVowelCount) {
+      offset = -encryptKey.length - newNumberSum;
+    }
+  }
+
+  console.log(vowelCount);
+  console.log(consonantCount);
+  console.log(numberSum);
+  console.log(numberCount);
   console.log(offset); //currently offsets all characters by this count
 
   const message = await p.text({
