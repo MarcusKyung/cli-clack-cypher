@@ -74,11 +74,11 @@ async function encrypt() {
     }
   }
 
-  console.log(vowelCount);
-  console.log(consonantCount);
-  console.log(numberSum);
-  console.log(numberCount);
-  console.log(offset); //currently offsets all characters by this count
+  // console.log(vowelCount);
+  // console.log(consonantCount);
+  // console.log(numberSum);
+  // console.log(numberCount);
+  // console.log(offset); //currently offsets all characters by this count
 
   const message = await p.text({
     message: 'Provide message',
