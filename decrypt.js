@@ -41,7 +41,7 @@ async function decrypt() {
     decryptOffset = decryptKey.length + decryptNumberSum;
   }
 
-  console.log(decryptOffset); //currently offsets all characters by this count
+  // console.log(decryptOffset); //currently offsets all characters by this count
 
   const decryptMessage = await p.text({
     message: 'Provide message',
