@@ -1,7 +1,7 @@
 {
   "name": "cli-clack-cypher",
   "version": "1.0.1",
-  "description": "",
+  "description": "substitution cypher cli tool",
   "type": "module",
   "main": "index.js",
   "scripts": {
