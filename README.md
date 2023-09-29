@@ -2,13 +2,26 @@
 
 #### By _**Marcus Kyung**_
 
-#### _This JavaScript terminal app uses a user provided key to encrypt or decrypt messages using a simple substitution cypher._
+#### This JavaScript terminal app uses a user provided key to encrypt or decrypt messages using a simple substitution cypher.
+
+## Setup/Installation
+This program can be run two ways: through NPM or locally by downloading and running the source code. If you are coming from marcuskyung.com use the encryption key: marcuskyung to decrypt the message.
+
+### NPM Method
+1. Install [Node.js](https://nodejs.org/en/download/)
+2. Install [NPM](https://www.npmjs.com/get-npm)
+3. Run `npx cli-clack-cypher` in your terminal
+
+### Run Locally via GH download
+1. Clone this repository to your desktop
+2. Run NPM install to install dependencies
+3. Run `npm run start` to start the program in your terminal
 
 ## Technologies Used
-
 * _JavaScript_
 * _Clack CLI Component Library_
 * _Picocolors Terminal Output Library_
+* _NPM_
 
 ## Known Bugs
 * _No known bugs_
